@@ -1,0 +1,42 @@
+local player = game.Players.LocalPlayer
+local character = player.Character or player.CharacterAdded:Wait()
+local hrp = character:WaitForChild("HumanoidRootPart")
+local flying = false
+local flightSpeed = 50 -- Điều chỉnh tốc độ bay nếu cần
+
+-- Sự kiện điều khiển bay
+local userInputService = game:GetService("UserInputService")
+
+local direction = Vector3.new(0, 0, 0)
+local function setDirection(newDirection)
+direction = newDirection
+end
+
+-- Hàm điều khiển bay
+local function toggleFly()
+flying = not flying
+character.Humanoid.PlatformStand = flying
+
+if flying then
+while flying do
+wait(0.1)
+local newDir = (direction * flightSpeed).Unit * flightSpeed
+hrp.Velocity = hrp.CFrame:VectorToWorldSpace(newDir)
+end
+else
+hrp.Velocity = Vector3.new(0, 0, 0)
+end
+end
+bee.Humanoid:TakeDamage(bee.Humanoid.Health) -- Đảm bảo rằng Windy Bee sẽ bị đánh
+end
+until not bee:FindFirstChild("Humanoid") or bee.Humanoid.Health <= 0
+end
+end
+end
+end
+
+-- Bắt đầu farm, săn Windy Bee, và farm vườn hoa
+spawn(farmResources)
+spawn(farmGardens)
+spawn(findAndFightWindyBee)
+spawn(collectTokens)
